@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+
+namespace WASServices
+{
+    [ServiceContract]
+    public interface IEntityServices
+    {
+        [OperationContract]
+        List<Employee> GetEmployees();
+        [OperationContract]
+        void InsertRecord(Employee emp);
+        [OperationContract]
+        void DeleteRecord(int id);
+    }
+
+    [DataContract]
+    public class Employee
+    {
+        [DataMember]
+        public int EmpId { get; set; }
+        [DataMember]
+        public string EmpName { get; set; }
+        [DataMember]
+        public string EmpAddress { get; set; }
+    }
+}
