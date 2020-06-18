@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using WcfToMVC.myServices;
+namespace WcfToMVC.Controllers
+{
+    public class EmployeeController : Controller
+    {
+        // GET: Employee
+        public ActionResult Index()
+        {
+            var proxy = new EntityServicesClient();
+            var data = proxy.GetEmployees();
+            return View(data);
+        }
+
+        public ActionResult DeleteRecords(int id)
+        {
+            var proxy = new EntityServicesClient();
+            proxy.DeleteRecord(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult InsertRecords()
+        {
+            Employee emp = new Employee();
+            return View(emp);
+        }
+        [HttpPost]
+        public ActionResult InsertRecords(Employee emp)
+        {
+            var proxy = new EntityServicesClient();
+            proxy.InsertRecord(emp);
+            return RedirectToAction("Index");
+        }
+    }
+}
